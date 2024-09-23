@@ -1,7 +1,7 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { EventProducerService } from 'src/common/event-producer.service';
 import { ConsumeCompletedMessageDto } from '../dtos/consume-completed-message.dto';
-import { ProduceComplatedMessageDto } from '../dtos/produce-completed-message.dto';
+import { ProduceCompletedMessageDto } from '../dtos/produce-completed-message.dto';
 
 export class ConsumeCompletedEvent {
   constructor(public readonly body: ConsumeCompletedMessageDto) {}
@@ -14,7 +14,7 @@ export class ConsumeCompletedEventHandler
   constructor(private readonly eventProducerService: EventProducerService) {}
   handle(event: ConsumeCompletedEvent) {
     // Mapping the data to ProduceRootMessageDto
-    const produceMessage = new ProduceComplatedMessageDto(event.body);
+    const produceMessage = new ProduceCompletedMessageDto(event.body);
     // Publishing the message
     this.eventProducerService.publisher('dsb.createCompartyRole', event.body);
   }

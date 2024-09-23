@@ -1,7 +1,7 @@
 import { Expose } from 'class-transformer';
 import { ConsumeRootMessageDto } from './consume-root-message.dto';
 
-export class ProduceComplatedMessageDto {
+export class ProduceCompletedMessageDto {
   constructor(data: ConsumeRootMessageDto) {
     this.example = data.example;
     this.referredType = data.referredType;
