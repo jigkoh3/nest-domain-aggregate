@@ -3,6 +3,8 @@ import { Controller, UsePipes } from '@nestjs/common';
 import { EventBus } from '@nestjs/cqrs';
 import { ConsumeRootMessageDto } from '../application/dtos/consume-root-message.dto';
 import { ConsumeRootEvent } from '../application/events/consume-root-event.handler';
+import { ConsumeCompletedEvent } from '../application/events/consume-completed-event.handler';
+import { ConsumeFailedEvent } from '../application/events/consume-failed-event.handler';
 
 @Controller()
 export class EventConsumerController {
@@ -18,12 +20,14 @@ export class EventConsumerController {
   @EntryPoint('dsb.companyCreated')
   @UsePipes(new RemoveAtSymbolPipe())
   async handleEventDsCompleted(@ToObjectDecorator() data: any) {
-    console.log('EventConsumerController.handleEventDsCompleted', data);
+    // console.log('EventConsumerController.handleEventDsCompleted', data);
+    this.eventBus.publish(new ConsumeCompletedEvent(data));
   }
 
   @EntryPoint('dsb.createCompanyFailed')
   @UsePipes(new RemoveAtSymbolPipe())
   async handleEventDsFailed(@ToObjectDecorator() data: any) {
-    console.log('EventConsumerController.handleEventDsFailed', data);
+    // console.log('EventConsumerController.handleEventDsFailed', data);
+    this.eventBus.publish(new ConsumeFailedEvent(data));
   }
 }
