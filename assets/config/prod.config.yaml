@@ -1,0 +1,53 @@
+app:
+  name: "MFAF"
+  component-name: "resource.domain-service"
+  description: "[Example] management"
+  version: "1.0"
+  collection-name: "example.examples"
+  tmf-spec: "TMF999"
+  base-api-version: "4.0.0"
+  schema-version: "1.0.0"
+
+log:
+  detail:
+    level: "info"
+    enable-file-logging: false
+    log-file-properties:
+      dirname: "logs/detail"
+      filename: "detail-%DATE%"
+      date-pattern: "YYYY-MM-DD-HH"
+      extension: ".log"
+  summary:
+    level: "info"
+    enable-file-logging: false
+    log-file-properties:
+      dirname: "logs/summary"
+      filename: "summary-%DATE%"
+      date-pattern: "YYYY-MM-DD-HH"
+      extension: ".log"
+
+nanoid:
+  alphanum: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+  len: 11
+
+kafka:
+  client:
+    client-id: 'resource.domain-service'
+    ssl: true
+  consumer:
+    group-id: 'resource.domain-service-0'
+    allow-auto-topic-creation: true
+
+topics:
+  consume:
+    example-topic: "mfaf.exampleTopic"
+  produce:
+    topic-example: "mfaf.topicExample" 
+
+api-services:
+  examples:
+    list-example:
+      url: https://webhook.site/658d7ea4-5d71-45fd-b03f-918d017a8ca8
+      method: "POST"
+      timeout: 5000
+      reject-unauthorized: false
